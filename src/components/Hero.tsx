@@ -39,7 +39,7 @@ export default function Hero() {
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         >
           <Image
-            src="/logo.png"
+            src="/logo.jpg"
             alt="Mane Training Center"
             width={180}
             height={180}

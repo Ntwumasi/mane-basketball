@@ -36,7 +36,7 @@ export default function Navbar() {
         <div className="flex h-20 items-center justify-between">
           <a href="#" className="flex items-center gap-3 group">
             <Image
-              src="/logo.png"
+              src="/logo.jpg"
               alt="Mane Training Center"
               width={56}
               height={56}
