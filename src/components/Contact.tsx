@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useState, type FormEvent } from "react";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 40 },
@@ -12,6 +13,31 @@ const fadeUp = {
 };
 
 export default function Contact() {
+  const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setSubmitting(true);
+    const form = e.currentTarget;
+    const data = new FormData(form);
+
+    try {
+      await fetch("https://formsubmit.co/ajax/manetrainingcenter@gmail.com", {
+        method: "POST",
+        headers: { Accept: "application/json" },
+        body: data,
+      });
+      setSubmitted(true);
+      form.reset();
+    } catch {
+      // fallback: open mailto
+      window.location.href = `mailto:manetrainingcenter@gmail.com?subject=New inquiry from ${data.get("name")}&body=${data.get("message")}`;
+    } finally {
+      setSubmitting(false);
+    }
+  }
+
   return (
     <section id="contact" className="relative py-32 overflow-hidden">
       <div className="absolute inset-0 bg-black" />
@@ -116,12 +142,22 @@ export default function Contact() {
             variants={fadeUp}
             className="bg-charcoal/60 border border-white/[0.06] rounded-2xl p-8 sm:p-10"
           >
+            {submitted ? (
+              <div className="text-center py-16">
+                <div className="w-16 h-16 rounded-full bg-red/20 flex items-center justify-center mx-auto mb-6">
+                  <svg className="w-8 h-8 text-red" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                  </svg>
+                </div>
+                <h3 className="font-display text-2xl font-bold uppercase text-white mb-2">Message Sent!</h3>
+                <p className="text-light-gray">We&apos;ll get back to you soon.</p>
+              </div>
+            ) : (
             <form
               className="space-y-6"
-              onSubmit={(e) => {
-                e.preventDefault();
-              }}
+              onSubmit={handleSubmit}
             >
+              <input type="hidden" name="_subject" value="New inquiry from Mane Training Center website" />
               <div className="grid sm:grid-cols-2 gap-6">
                 <div>
                   <label className="block text-xs font-display uppercase tracking-wider text-gray mb-2">
@@ -129,6 +165,8 @@ export default function Contact() {
                   </label>
                   <input
                     type="text"
+                    name="name"
+                    required
                     placeholder="Your name"
                     className="w-full bg-dark-gray/60 border border-white/[0.06] rounded-xl px-4 py-3 text-white placeholder:text-gray focus:outline-none focus:border-red/40 transition-colors"
                   />
@@ -139,6 +177,7 @@ export default function Contact() {
                   </label>
                   <input
                     type="tel"
+                    name="phone"
                     placeholder="(555) 000-0000"
                     className="w-full bg-dark-gray/60 border border-white/[0.06] rounded-xl px-4 py-3 text-white placeholder:text-gray focus:outline-none focus:border-red/40 transition-colors"
                   />
@@ -150,6 +189,8 @@ export default function Contact() {
                 </label>
                 <input
                   type="email"
+                  name="email"
+                  required
                   placeholder="you@email.com"
                   className="w-full bg-dark-gray/60 border border-white/[0.06] rounded-xl px-4 py-3 text-white placeholder:text-gray focus:outline-none focus:border-red/40 transition-colors"
                 />
@@ -158,7 +199,7 @@ export default function Contact() {
                 <label className="block text-xs font-display uppercase tracking-wider text-gray mb-2">
                   Interested In
                 </label>
-                <select className="w-full bg-dark-gray/60 border border-white/[0.06] rounded-xl px-4 py-3 text-gray focus:outline-none focus:border-red/40 transition-colors cursor-pointer">
+                <select name="program" className="w-full bg-dark-gray/60 border border-white/[0.06] rounded-xl px-4 py-3 text-gray focus:outline-none focus:border-red/40 transition-colors cursor-pointer">
                   <option value="">Select a program</option>
                   <option value="youth">Youth Development</option>
                   <option value="competitive">Competitive Training</option>
@@ -171,6 +212,7 @@ export default function Contact() {
                   Message
                 </label>
                 <textarea
+                  name="message"
                   rows={4}
                   placeholder="Tell us about your goals..."
                   className="w-full bg-dark-gray/60 border border-white/[0.06] rounded-xl px-4 py-3 text-white placeholder:text-gray focus:outline-none focus:border-red/40 transition-colors resize-none"
@@ -178,11 +220,13 @@ export default function Contact() {
               </div>
               <button
                 type="submit"
-                className="w-full font-display text-sm font-bold uppercase tracking-wider bg-red hover:bg-red-dark text-white py-4 rounded-xl transition-all duration-200 cursor-pointer hover:scale-[1.02] hover:shadow-xl hover:shadow-red/25"
+                disabled={submitting}
+                className="w-full font-display text-sm font-bold uppercase tracking-wider bg-red hover:bg-red-dark text-white py-4 rounded-xl transition-all duration-200 cursor-pointer hover:scale-[1.02] hover:shadow-xl hover:shadow-red/25 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                Send Message
+                {submitting ? "Sending..." : "Send Message"}
               </button>
             </form>
+            )}
           </motion.div>
         </div>
       </div>

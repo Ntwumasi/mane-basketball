@@ -79,7 +79,7 @@ export default function Hero() {
           className="mt-10 flex flex-col sm:flex-row gap-4 justify-center"
         >
           <a
-            href="#contact"
+            href="#schedule"
             className="font-display text-lg font-bold uppercase tracking-wider bg-red hover:bg-red-dark text-white px-10 py-4 rounded-xl transition-all duration-200 cursor-pointer hover:scale-105 hover:shadow-xl hover:shadow-red/25"
           >
             Start Training

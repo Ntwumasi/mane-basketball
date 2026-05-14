@@ -8,6 +8,7 @@ const links = [
   { label: "About", href: "#about" },
   { label: "Programs", href: "#programs" },
   { label: "Pricing", href: "#pricing" },
+  { label: "Schedule", href: "#schedule" },
   { label: "Contact", href: "#contact" },
 ];
 
@@ -64,7 +65,7 @@ export default function Navbar() {
               </a>
             ))}
             <a
-              href="#contact"
+              href="#schedule"
               className="font-display text-sm font-bold uppercase tracking-wider bg-red hover:bg-red-dark text-white px-6 py-2.5 rounded-lg transition-all duration-200 cursor-pointer hover:scale-105"
             >
               Book Now
@@ -125,7 +126,7 @@ export default function Navbar() {
                 </a>
               ))}
               <a
-                href="#contact"
+                href="#schedule"
                 onClick={() => setMobileOpen(false)}
                 className="font-display text-center text-lg font-bold uppercase tracking-wider bg-red text-white px-6 py-3 rounded-lg cursor-pointer"
               >

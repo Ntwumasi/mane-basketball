@@ -150,7 +150,7 @@ export default function Pricing() {
                 ))}
               </ul>
               <a
-                href="#contact"
+                href="#schedule"
                 className={`block text-center font-display text-sm font-bold uppercase tracking-wider py-3.5 rounded-xl transition-all duration-200 cursor-pointer ${
                   tier.featured
                     ? "bg-red hover:bg-red-dark text-white hover:scale-105 hover:shadow-lg hover:shadow-red/25"
