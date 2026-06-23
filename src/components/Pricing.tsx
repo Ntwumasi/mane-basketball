@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 const tiers = [
   {
     name: "Drop-In",
-    price: "25",
+    price: "35",
     period: "per session",
     description: "Perfect for trying us out or fitting in extra work.",
     features: [
@@ -163,16 +163,6 @@ export default function Pricing() {
           ))}
         </div>
 
-        <motion.p
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.6 }}
-          className="mt-12 text-center text-sm text-gray italic"
-        >
-          * Pricing shown is placeholder — contact us for current rates and
-          packages.
-        </motion.p>
       </div>
     </section>
   );
